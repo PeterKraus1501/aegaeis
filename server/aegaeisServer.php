@@ -80,10 +80,14 @@ class user
             return "e-mail already exists";
         }
 
-
+                   
         $encryptedPassword=md5($password);
-        $return=$db->executeSQL("insert into user(email, password, encryptedPassword) 
-                                             values ('$email', '$password', '$encryptedPassword')");
+        
+        $key=rand(10000,99999);
+        $applicationKey=md5($key);
+        
+        $return=$db->executeSQL("insert into user(email, encryptedPassword) 
+                                             values ('$email', '$encryptedPassword')");
         $id=mysql_insert_id();
 
         return "$id";
